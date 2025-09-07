@@ -12,9 +12,9 @@ from app.config import settings
 logger = logging.getLogger(__name__)
 
 celery_app = Celery(
-    "stocks_tasks",
-    broker="redis://redis:6379/0",
-    backend="redis://redis:6379/0"
+    main="stocks_tasks",
+    broker=f"{settings.REDIS_URL}/{settings.REDIS_DB}",
+    backend=f"{settings.REDIS_URL}/{settings.REDIS_DB}"
 )
 
 celery_app.conf.update(

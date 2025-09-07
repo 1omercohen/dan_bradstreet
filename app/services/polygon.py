@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 
 class PolygonService:
     def __init__(self):
-        self.base_url = settings.POLYGON_BASE_URL
+        self.base_url = settings.POLYGON_URL
         self.api_key = settings.POLYGON_API_KEY
         self.client = httpx.AsyncClient(timeout=30.0)
 
@@ -18,7 +18,7 @@ class PolygonService:
         if not date:
             date = datetime.now().strftime("%Y-%m-%d")
         
-        url = f"{self.base_url}/v1/open-close/{symbol.upper()}/{date}"
+        url = f"{self.base_url}/{symbol.upper()}/{date}"
         params = {"apikey": self.api_key}
         
         try:

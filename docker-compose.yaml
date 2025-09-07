@@ -28,6 +28,7 @@ services:
             - DATABASE_URL=sqlite:///./data/stocks.db
             - POLYGON_API_KEY=bs1n5Vdqoi_NOvmCZ_85rrcvtFnYN3vm
             - REDIS_URL=redis://redis:6379
+            - REDIS_DB=0
         volumes:
             - ./data:/app/data
         depends_on:
@@ -39,6 +40,7 @@ services:
         command: celery -A app.tasks beat --loglevel=info
         environment:
             - REDIS_URL=redis://redis:6379
+            - REDIS_DB=0
         depends_on:
             - redis
         restart: unless-stopped
