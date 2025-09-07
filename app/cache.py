@@ -5,11 +5,13 @@ from typing import Optional
 
 from app.exceptions import CacheException
 
+from app.config import settings
+
 logger = logging.getLogger(__name__)
 
 class CacheService:
-    def __init__(self, redis_url: str = "redis://redis:6379"):
-        self.redis_url = redis_url
+    def __init__(self):
+        self.redis_url = settings.REDIS_URL
         self._redis = None
 
     async def get_redis(self):

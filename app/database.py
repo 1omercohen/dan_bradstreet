@@ -2,14 +2,13 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, DeclarativeBase
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker
 import os
-from dotenv import load_dotenv
 
-load_dotenv()
+from app.config import settings
 
 class Base(DeclarativeBase):
     pass
 
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./stocks.db")
+DATABASE_URL = settings.DATABASE_URL
 ASYNC_DATABASE_URL = DATABASE_URL.replace("sqlite:///", "sqlite+aiosqlite:///")
 
 engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})

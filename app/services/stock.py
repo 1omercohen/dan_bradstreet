@@ -1,5 +1,6 @@
 import asyncio
 import logging
+import json
 from typing import Optional
 
 from app.repositories.stock import StockRepository
@@ -26,6 +27,7 @@ class StockService:
                 logger.info(f"Cache hit for {symbol}")
                 stock = await self.repository.get_by_symbol(symbol)
                 cached_data['amount'] = stock.amount if stock else 0
+                cached_data['performance'] = json.loads(cached_data['performance']) if 'performance' in cached_data and isinstance(cached_data['performance'], str) else cached_data.get('performance', {})
                 return StockResponse(**cached_data)
         except CacheException as e:
             logger.warning(f"Cache read failed for {symbol}: {e.message}")
@@ -105,8 +107,6 @@ class StockService:
             raise
 
     def _to_response(self, stock) -> StockResponse:
-        import json
-        
         performance = {}
         if stock.performance:
             try:
