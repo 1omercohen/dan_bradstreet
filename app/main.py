@@ -28,10 +28,6 @@ app.add_middleware(ErrorHandlingMiddleware)
 
 app.include_router(stocks_router)
 
-@app.get("/")
-def root():
-    return {"message": "Stocks API is running", "docs": "/docs"}
-
 @app.get("/health")
 def health_check():
     return {"status": "healthy", "service": "stocks-api"}
