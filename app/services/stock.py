@@ -88,7 +88,7 @@ class StockService:
         try:
             market_data = stock_data.copy()
             market_data.pop('amount', None)
-            await cache_service.set(cache_key, market_data)
+            await cache_service.set(cache_key, market_data, ttl=300)
         except CacheException as e:
             logger.warning(f"Cache write failed for {symbol}: {e.message}")
         
