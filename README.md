@@ -131,3 +131,44 @@ Example Response:
     "message": "5 units of stock AAPL were added to your stock record"
 }
 ```
+
+## Production vs Assignment Considerations
+
+This implementation was designed as a coding assessment. In a real production environment, I would make the following changes:
+
+### Database
+
+-   **PostgreSQL** instead of SQLite for scalability and concurrent access
+-   **Database migrations** with proper versioning (Alembic)
+-   **Connection pooling** and read replicas for high availability
+-   **Proper indexing** on frequently queried fields
+
+### Security
+
+-   **Authentication & Authorization** (JWT tokens, API keys)
+-   **Rate limiting** per user/API key
+-   **Input validation** and sanitization
+-   **HTTPS only** with proper SSL certificates
+-   **Environment-based secrets management** (AWS Secrets Manager, HashiCorp Vault)
+
+### Architecture
+
+-   **Microservices** - separate services for stock data, user management, notifications
+-   **API Gateway** for routing, authentication, and rate limiting
+-   **Load balancer** for multiple API instances
+-   **Message queue** (RabbitMQ/AWS SQS/Kafka) instead of Redis for critical tasks
+
+### Monitoring & Observability
+
+-   **Structured logging** with ELK stack or similar (Helm/Argo/Serveless)
+-   **Metrics collection** (Prometheus/Grafana/DataDog)
+-   **Health checks** and alerting
+-   **Distributed tracing** (Jaeger/Zipkin/Open Telemtry)
+-   **Performance monitoring** (APM tools)
+
+### Data Management
+
+-   **Data retention policies**
+-   **Backup strategies** with point-in-time recovery
+-   **Data privacy compliance** (GDPR considerations)
+-   **Caching strategies** with cache invalidation patterns
